@@ -1,15 +1,15 @@
 // TICKLE Price Checker
 
 // constants
-const healthConditions = {
+const HEALTH_CONDITIONS = {
   "sleep apnea": 0.06,
   allergies: 0.01,
   "heart disease": 0.17,
 };
+const FEMALE_DISCOUNT = 12;
+const BASE_COST = 100;
 
-let femaleDiscount = 12;
-
-function findAgeBracketCost(age, cost) {
+function calculateAgeBracketCost(age, cost) {
   let ageBracket = 0;
   let minAge = 18;
   let increment = 5;
@@ -23,27 +23,31 @@ function findAgeBracketCost(age, cost) {
   return (cost += ageBracket);
 }
 
-function evaluateHealthConditions(condition, cost) {
-  let increment = healthConditions[condition] * cost;
+function calculateHealthConditionCost(condition, cost) {
+  let increment = HEALTH_CONDITIONS[condition] * cost;
   return (cost += increment);
 }
 
-const checkPrice = (person) => {
-  let cost = 100;
+const calculateTotalPrice = (person) => {
+  let cost = BASE_COST;
 
   // under 18 not eligible
   if (person.age < 18) return "not eligible";
 
-  // find the base cost for their age bracket
-  cost = findAgeBracketCost(person.age, cost);
+  // finds the base cost for their age bracket
+  cost = calculateAgeBracketCost(person.age, cost);
 
-  // evaluate cost of health conditions
+  // evaluates cost of health conditions
   if (person.healthCondition) {
-    cost = evaluateHealthConditions(person.healthCondition, cost);
+    cost = calculateHealthConditionCost(person.healthCondition, cost);
   }
 
   // women receive $12 discount on final price
-  return person.gender === "female" ? cost - femaleDiscount : cost;
+  if (person.gender === "female") {
+    cost -= FEMALE_DISCOUNT;
+  }
+
+  return cost;
 };
 
-module.exports = checkPrice;
+module.exports = calculateTotalPrice;
