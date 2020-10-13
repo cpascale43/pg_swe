@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TICKLE MVP</title>
+    <link href="form.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <form id="policycalculator">
+      <h1>TICKLE Policy checker</h1>
+      <p>
+        Required fields are followed by
+        <strong><abbr title="required">*</abbr></strong
+        >.
+      </p>
+      <section>
+        <h2>Demographic information</h2>
+        <p>
+          <label for="name">
+            <span>First name: </span>
+            <strong><abbr title="required">*</abbr></strong>
+          </label>
+          <input type="text" id="name" name="name" required />
+        </p>
+        <p>
+          <label for="age">
+            <span>Age: </span>
+            <strong><abbr title="required">*</abbr></strong>
+          </label>
+          <input type="number" id="age" name="age" min="1" max="125" required />
+        </p>
+        <fieldset>
+          <legend>
+            <span>Gender: </span
+            ><strong><abbr title="required">*</abbr></strong>
+          </legend>
+
+          <ul>
+            <li>
+              <label for="gender">
+                <input type="radio" id="gender" name="gender" value="male" />
+                Male
+              </label>
+            </li>
+            <li>
+              <label for="gender">
+                <input type="radio" id="gender" name="gender" value="female" />
+                Female
+              </label>
+            </li>
+          </ul>
+        </fieldset>
+      </section>
+      <section>
+        <h2>Health information</h2>
+        <p>
+          <label for="health">
+            <span>Health condition:</span>
+          </label>
+          <select id="health" name="userhealth">
+            <option value="none">None</option>
+            <option value="allergies">Allergies</option>
+            <option value="heart disease">Heart Disease</option>
+            <option value="sleep apnea">Sleep Apnea</option>
+          </select>
+        </p>
+      </section>
+      <section>
+        <p><button type="submit">Get quote</button></p>
+      </section>
+    </form>
+  </body>
+  <script>
+    // TICKLE Price Checker
+
+    // constants
+    const HEALTH_CONDITIONS = {
+      "sleep apnea": 0.06,
+      allergies: 0.01,
+      "heart disease": 0.17,
+    };
+    const FEMALE_DISCOUNT = 12;
+    const BASE_COST = 100;
+
+    function calculateAgeBracketCost(age, cost) {
+      let ageBracket = 0;
+      let minAge = 18;
+      let increment = 5;
+
+      while (minAge + increment < age) {
+        minAge += increment;
+        ageBracket++;
+      }
+
+      ageBracket *= 20;
+      return (cost += ageBracket);
+    }
+
+    function calculateHealthConditionCost(condition, cost) {
+      if (!HEALTH_CONDITIONS[condition]) return cost;
+      let increment = HEALTH_CONDITIONS[condition] * cost;
+      return (cost += increment);
+    }
+
+    const calculateTotalPrice = (person) => {
+      let cost = BASE_COST;
+
+      // under 18 not eligible
+      if (person.age < 18) return "not eligible";
+
+      // finds the base cost for their age bracket
+      cost = calculateAgeBracketCost(person.age, cost);
+
+      // evaluates cost of health conditions
+      if (person.healthCondition) {
+        cost = calculateHealthConditionCost(person.healthCondition, cost);
+      }
+
+      // women receive $12 discount on final price
+      if (person.gender === "female") {
+        cost -= FEMALE_DISCOUNT;
+      }
+
+      return cost;
+    };
+
+    const btn = document.querySelector("button");
+    const form = document.getElementById("policycalculator");
+
+    // append a node with the calculated price to the DOM
+    function sendData() {
+      // get name
+      const name = document.getElementById("name");
+
+      // get age
+      const age = document.getElementById("age");
+
+      // get gender
+      let gender;
+      const genderRadios = document.getElementsByName("gender");
+      for (let i = 0; i < genderRadios.length; i++) {
+        if (genderRadios[i].checked) {
+          gender = genderRadios[i].value;
+          break;
+        }
+      }
+
+      // get health conditions
+      const health = document.getElementById("health");
+
+      let person = {
+        name: name.value,
+        age: Number(age.value),
+        gender: gender,
+        healthCondition: health.value,
+      };
+      console.log("look here", person, calculateTotalPrice(person));
+    }
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      sendData();
+    });
+  </script>
+</html>

@@ -3,7 +3,7 @@
 // constants
 const HEALTH_CONDITIONS = {
   "sleep apnea": 0.06,
-  allergies: 0.01,
+  "allergies": 0.01,
   "heart disease": 0.17,
 };
 const FEMALE_DISCOUNT = 12;
