@@ -3,7 +3,7 @@
 // constants
 const HEALTH_CONDITIONS = {
   "sleep apnea": 0.06,
-  "allergies": 0.01,
+  allergies: 0.01,
   "heart disease": 0.17,
 };
 const FEMALE_DISCOUNT = 12;
@@ -28,7 +28,7 @@ function calculateHealthConditionCost(condition, cost) {
   return (cost += increment);
 }
 
-const calculateTotalPrice = (person) => {
+const calculateTotalPrice = ({ person }) => {
   let cost = BASE_COST;
 
   // under 18 not eligible
@@ -50,4 +50,35 @@ const calculateTotalPrice = (person) => {
   return cost;
 };
 
+// // append a node with the calculated price to the DOM
+// function sendData() {
+//   // get name
+//   const name = document.getElementById("name");
+
+//   // get age
+//   const age = document.getElementById("age");
+
+//   // get gender
+//   let gender;
+//   const genderRadios = document.getElementsByName("gender");
+//   for (let i = 0; i < genderRadios.length; i++) {
+//     if (genderRadios[i].checked) {
+//       gender = genderRadios[i].value;
+//       break;
+//     }
+//   }
+
+//   // get health conditions
+//   const health = document.getElementById("health");
+
+//   const person = {
+//     name: name.value,
+//     age: Number(age.value),
+//     gender: gender,
+//     healthCondition: health.value,
+//   };
+//   console.log("look here", person, calculateTotalPrice(person));
+// }
+
+// export default calculateTotalPrice;
 module.exports = calculateTotalPrice;
