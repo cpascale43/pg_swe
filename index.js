@@ -62,10 +62,7 @@ form.addEventListener("submit", function (event) {
 
   const person = { name, age, gender, healthCondition };
 
-  console.log(calculateTotalPrice, "do i exist?");
-
-  // alert(`Your final quote is ${calculateTotalPrice({ person })}`);
-  alert(`you are ${person}`);
+  alert(`Your final quote is ${calculateTotalPrice({ person })}`);
 });
 
 module.exports = calculateTotalPrice;
