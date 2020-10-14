@@ -1,4 +1,4 @@
-const calculateTotalPrice = require("./index");
+const calculateTotalPrice = require("./modules/index");
 
 let person = {};
 test("calculateTotalPrice function exists", () => {
@@ -12,12 +12,12 @@ test("calculateTotalPrice handles if a person is under 18", () => {
     gender: "male",
     healthCondition: "heart disease",
   };
-  expect(calculateTotalPrice({person})).toEqual("not eligible");
+  expect(calculateTotalPrice({ person })).toEqual("not eligible");
 });
 
 test("calculateTotalPrice handles if an eligible person has no health conditions", () => {
-  person = { name: "Zeke", age: 18, gender: "male" };
-  expect(calculateTotalPrice({person})).toEqual(100);
+  person = { name: "Zeke", age: 18, gender: "male", healthCondition: "none" };
+  expect(calculateTotalPrice({ person })).toEqual(100);
 });
 
 test("calculateTotalPrice handles if an eligible person has heart disease", () => {
@@ -27,7 +27,7 @@ test("calculateTotalPrice handles if an eligible person has heart disease", () =
     gender: "male",
     healthCondition: "heart disease",
   };
-  expect(calculateTotalPrice({person})).toEqual(117);
+  expect(calculateTotalPrice({ person })).toEqual(117);
 });
 
 test("calculateTotalPrice handles if an eligible person has sleep apnea", () => {
@@ -37,7 +37,7 @@ test("calculateTotalPrice handles if an eligible person has sleep apnea", () => 
     gender: "male",
     healthCondition: "sleep apnea",
   };
-  expect(calculateTotalPrice({person})).toEqual(190.8);
+  expect(calculateTotalPrice({ person })).toEqual(190.8);
 });
 
 test("calculateTotalPrice handles if an eligible person has allergies and is female", () => {
@@ -47,5 +47,15 @@ test("calculateTotalPrice handles if an eligible person has allergies and is fem
     gender: "female",
     healthCondition: "allergies",
   };
-  expect(calculateTotalPrice({person})).toEqual(210.2);
+  expect(calculateTotalPrice({ person })).toEqual(210.2);
+});
+
+test("calculateTotalPrice handles if an eligible person has no health conditions and is female", () => {
+  person = {
+    name: "Carrie",
+    age: 25,
+    gender: "female",
+    healthCondition: "none",
+  };
+  expect(calculateTotalPrice({ person })).toEqual(108);
 });

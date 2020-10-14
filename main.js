@@ -1,4 +1,4 @@
-import { calculateTotalPrice } from "./index";
+import { calculateTotalPrice } from "./modules";
 
 const form = document.getElementById("policycalculator");
 
