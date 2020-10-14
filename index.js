@@ -80,5 +80,5 @@ const calculateTotalPrice = ({ person }) => {
 //   console.log("look here", person, calculateTotalPrice(person));
 // }
 
-// export default calculateTotalPrice;
+export default calculateTotalPrice;
 module.exports = calculateTotalPrice;
