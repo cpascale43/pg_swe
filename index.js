@@ -24,6 +24,7 @@ function calculateAgeBracketCost(age, cost) {
 }
 
 function calculateHealthConditionCost(condition, cost) {
+  if (!HEALTH_CONDITIONS[condition]) return cost;
   let increment = HEALTH_CONDITIONS[condition] * cost;
   return (cost += increment);
 }
