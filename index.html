@@ -72,9 +72,9 @@
       </section>
     </form>
   </body>
-  <script type="text/javascript" src="index.js"></script>
+  <!-- <script type="text/javascript" src="index.js"></script> -->
   <script type="module">
-    import calculateTotalPrice from "./index";
+    // import calculateTotalPrice from "./index";
 
     const form = document.getElementById("policycalculator");
 
@@ -88,7 +88,8 @@
 
       const person = { name, age, gender, healthCondition };
 
-      alert(`Your final quote is ${calculateTotalPrice({ person })}`);
+      // alert(`Your final quote is ${calculateTotalPrice({ person })}`);
+      alert(`you are ${person}`);
     });
   </script>
 </html>
