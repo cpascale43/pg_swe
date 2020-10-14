@@ -50,35 +50,22 @@ const calculateTotalPrice = ({ person }) => {
   return cost;
 };
 
-// // append a node with the calculated price to the DOM
-// function sendData() {
-//   // get name
-//   const name = document.getElementById("name");
+const form = document.getElementById("policycalculator");
 
-//   // get age
-//   const age = document.getElementById("age");
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
 
-//   // get gender
-//   let gender;
-//   const genderRadios = document.getElementsByName("gender");
-//   for (let i = 0; i < genderRadios.length; i++) {
-//     if (genderRadios[i].checked) {
-//       gender = genderRadios[i].value;
-//       break;
-//     }
-//   }
+  const name = event.target.elements.name.value;
+  const age = Number(event.target.elements.age.value);
+  const gender = event.target.elements.gender.value;
+  const healthCondition = event.target.elements.userhealth.value;
 
-//   // get health conditions
-//   const health = document.getElementById("health");
+  const person = { name, age, gender, healthCondition };
 
-//   const person = {
-//     name: name.value,
-//     age: Number(age.value),
-//     gender: gender,
-//     healthCondition: health.value,
-//   };
-//   console.log("look here", person, calculateTotalPrice(person));
-// }
+  console.log(calculateTotalPrice, "do i exist?");
 
-// export default calculateTotalPrice;
+  // alert(`Your final quote is ${calculateTotalPrice({ person })}`);
+  alert(`you are ${person}`);
+});
+
 module.exports = calculateTotalPrice;
